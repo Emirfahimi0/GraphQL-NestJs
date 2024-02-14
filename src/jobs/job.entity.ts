@@ -16,4 +16,7 @@ export class Jobs {
 
 	@Column()
 	jobTitle: string;
+
+	@Column()
+	candidates: string[];
 }

@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { EmployeeType } from "src/employee/employee.type";
 
 @ObjectType("Jobs")
 export class JobType {
@@ -13,4 +14,7 @@ export class JobType {
 
 	@Field()
 	jobDescription: string;
+
+	@Field(() => [EmployeeType])
+	candidates: string[];
 }

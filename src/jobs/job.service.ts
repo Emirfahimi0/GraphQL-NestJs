@@ -10,13 +10,14 @@ export class JobsService {
 	constructor(@InjectRepository(Jobs) private jobRepository: Repository<Jobs>) {}
 
 	async createJobs(CreateJobsInput: CreateJobsInput): Promise<Jobs> {
-		const { companyName, jobDescription, jobTitle } = CreateJobsInput;
+		const { companyName, jobDescription, jobTitle, candidates } = CreateJobsInput;
 
 		const job = this.jobRepository.create({
 			id: uuid(),
 			companyName,
 			jobDescription,
 			jobTitle,
+			candidates,
 		});
 
 		return this.jobRepository.save(job);
@@ -28,5 +29,13 @@ export class JobsService {
 
 	async getAllJobs(): Promise<Jobs[]> {
 		return this.jobRepository.find();
+	}
+
+	async assignJobs(jobId: string, employeeId: string[]): Promise<Jobs> {
+		const candidates = await this.jobRepository.findOne({ where: { id: jobId } });
+
+		candidates.candidates = [...candidates.candidates, ...employeeId];
+
+		return this.jobRepository.save(candidates);
 	}
 }
