@@ -1,7 +1,9 @@
 import { Column, Entity, ObjectIdColumn, PrimaryColumn } from "typeorm";
 
+export type statusType = "Fresh Graduate" | "Experienced" | "FreeLancer";
+
 @Entity()
-export class Jobs {
+export class Employee {
 	@ObjectIdColumn()
 	_id: string;
 
@@ -9,11 +11,14 @@ export class Jobs {
 	id: string;
 
 	@Column()
-	companyName: string;
+	firstName: string;
 
 	@Column()
-	jobDescription: string;
+	lastName: string;
 
 	@Column()
-	jobTitle: string;
+	age: number;
+
+	@Column()
+	status: statusType;
 }
